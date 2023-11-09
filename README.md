@@ -22,8 +22,6 @@ https://gpiozero.readthedocs.io/en/stable/recipes.html#pin-numbering
 
 <!-- ![](https://gpiozero.readthedocs.io/en/stable/_images/pin_layout.svg) -->
 
-
-
 ## Python GPIO libraries
 
 https://raspberrypi.stackexchange.com/questions/58820/compare-and-contrast-python-gpio-apis
@@ -54,10 +52,10 @@ gpiotest
 - This is run automatically via `~/.profile`
   - File contains caveats for when it is executed
 
-
 ## Execute project
 
 As a module
+
 - Implicitly uses top-level `__main__.py`
 - `PYTHONPATH` is a Python-exclusive extension of `PATH`
 - Add project directory parent to `PATH` so that it is visible
@@ -68,6 +66,7 @@ PYTHONPATH=$(cd .. && pwd) python -m optophone
 ```
 
 Use `-B` flag to avoid `__pycache__`
+
 - https://github.com/pytest-dev/pytest/issues/200
 - https://docs.python.org/3/using/cmdline.html#cmdoption-B
 
@@ -76,6 +75,7 @@ PYTHONPATH=$(cd .. && pwd) python -B -m optophone
 ```
 
 Change `gpiozero` default pin factory
+
 - https://gpiozero.readthedocs.io/en/stable/api_pins.html#changing-pin-factory
 
 ```sh
@@ -83,6 +83,7 @@ GPIOZERO_PIN_FACTORY=pigpio PYTHONPATH=$(cd .. && pwd) python -B -m optophone
 ```
 
 Override `loguru` default formatting
+
 - Slightly modifies default format as per docs
 - https://github.com/Delgan/loguru/blob/master/loguru/_defaults.py#L31
 - Aligns names
@@ -112,12 +113,12 @@ Running this...
 python -b -m optophone
 ```
 
-
 ## TTS commands
 
 ...
 
 ## Concepts
+
 - Decorators
 - Async
 - Pubsub
@@ -175,12 +176,12 @@ SUBSYSTEM=="usb", MODE="0666"
 
 ### Toggling
 
-
 https://docs.raspap.com/faq/#can-i-turn-the-hotspot-onoff-over-ssh
 
-
 - Turn on
+
   - Via terminal
+
     ```sh
     sudo systemctl start hostapd.service
 
@@ -206,14 +207,15 @@ https://docs.raspap.com/faq/#can-i-turn-the-hotspot-onoff-over-ssh
     - Select **Hotspot** tab
     - Click **Stop Hotspot**
 
-
 ## SSH
 
 `ssh squid@raspberrypi.local`
+
 - Must connect to same network as Pi
 - Pi can host required network (hotspot )
 
 ### Auto login
+
 - Generate client key
   ```sh
   ssh-keygen -t ed25519
@@ -224,6 +226,7 @@ https://docs.raspap.com/faq/#can-i-turn-the-hotspot-onoff-over-ssh
 ## Hostnames
 
 ### `raspberrypi.local`
+
 - Only available for devices that support mDNS
   - https://www.raspberrypi.com/documentation/computers/remote-access.html#resolving-raspberrypi-local-with-mdns
   - Not available in Android?
