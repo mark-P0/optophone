@@ -3,6 +3,25 @@
     "editor.tabSize": 2,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "cSpell.allowCompoundWords": true,
+  "cSpell.words": [
+    "asynch",
+    "oneline",
+    "loguru",
+    "powerup",
+    "picamera",
+    "binarize",
+    "binarization",
+    "otsu",
+    "leds",
+    "pytesseract",
+    "xlow",
+    "xhigh",
+    "xslow",
+    "xfast",
+    "xloud",
+    "pico"
+  ],
 
   "python.formatting.provider": "none",
   "python.linting.enabled": false
