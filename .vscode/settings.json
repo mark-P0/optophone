@@ -1,5 +1,10 @@
 {
+  "[json][jsonc]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
   "python.formatting.provider": "none",
-  "python.linting.enabled": false,
+  "python.linting.enabled": false
   // "python.analysis.typeCheckingMode": "basic",
 }
