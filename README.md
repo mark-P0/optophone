@@ -1,44 +1,42 @@
-# Optophone
+# `optophone`
 
-Software for an undergraduate design project for the degree of BS in Computer Engineering, ~2022.
+<!-- Source code for my undergraduate design project -->
 
-<!--
+Software for a reading machine powered by Raspberry Pi 3B+
 
-Add project outline here...
+> Unfortunately did not get a `requirements.txt`, OS version, and Python version before the project was submitted...
 
--->
+## Review of GPIO libraries
 
-## TODO
+> https://raspberrypi.stackexchange.com/questions/58820/compare-and-contrast-python-gpio-apis
 
-https://raspberrypi-guide.github.io/electronics/power-consumption-tricks
+### `gpiozero`
 
-## Pinout reference
+- Has simplest API, most modern, and has underlying support for other major libraries
+- Endorsed by Raspberry Pi Foundation itself
+- (?) Created by members of the foundation
+  - Who also created https://piwheels.org/
+- https://www.raspberrypi.com/news/gpio-zero-a-friendly-python-api-for-physical-computing/
+- https://www.raspberrypi.com/documentation/computers/os.html#gpio-in-python
 
-https://pinout.xyz/
+### `pigpio`
 
-![](https://raw.githubusercontent.com/Gadgetoid/Pinout.xyz/master/resources/raspberry-pi-pinout.png)
+- Most detailed, most accurate (hardware-timed)
+- Endorsed by `gpiozero` docs
 
-https://gpiozero.readthedocs.io/en/stable/recipes.html#pin-numbering
+### `wiringPi`
 
-<!-- ![](https://gpiozero.readthedocs.io/en/stable/_images/pin_layout.svg) -->
+- Closest to Arduino
+- Also rather complex
+- [Author unfortunately closed the project](https://web.archive.org/web/20220405225008/http://wiringpi.com/wiringpi-deprecated/)
 
-## Python GPIO libraries
+### `RPi.GPIO`
 
-https://raspberrypi.stackexchange.com/questions/58820/compare-and-contrast-python-gpio-apis
+- Was the de-facto standard for a _long_ time
 
-- `gpiozero` has simplest API, most modern, and has underlying support for other major libraries
-  - Endorsed by Raspberry Pi Foundation itself
-  - (?) Created by members of the foundation
-    - Who also created https://piwheels.org/
-  - https://www.raspberrypi.com/news/gpio-zero-a-friendly-python-api-for-physical-computing/
-  - https://www.raspberrypi.com/documentation/computers/os.html#gpio-in-python
-- `pigpio` is most detailed, most accurate (hardware-timed)
-  - Endorsed by `gpiozero` docs
-- `wiringPi` is closest to Arduino
-  - Also rather complex
-  - Issue with the author...
-- `RPi.GPIO` has been the de-facto standard for a _long_ time
-- `RPIO` is an extension of `RPi.GPIO`
+### `RPIO`
+
+- Extension of `RPi.GPIO`
 
 ## Test GPIO health / status
 
@@ -52,20 +50,20 @@ gpiotest
 - This is run automatically via `~/.profile`
   - File contains caveats for when it is executed
 
-## Execute project
+## Running the project
 
-As a module
+### As a module
 
 - Implicitly uses top-level `__main__.py`
 - `PYTHONPATH` is a Python-exclusive extension of `PATH`
-- Add project directory parent to `PATH` so that it is visible
+- Add project directory parent to `PYTHONPATH` so that it is visible
 - Project directory cannot be given directly to `python`
 
 ```sh
 PYTHONPATH=$(cd .. && pwd) python -m optophone
 ```
 
-Use `-B` flag to avoid `__pycache__`
+### With `-B` flag to avoid `__pycache__`
 
 - https://github.com/pytest-dev/pytest/issues/200
 - https://docs.python.org/3/using/cmdline.html#cmdoption-B
@@ -74,7 +72,7 @@ Use `-B` flag to avoid `__pycache__`
 PYTHONPATH=$(cd .. && pwd) python -B -m optophone
 ```
 
-Change `gpiozero` default pin factory
+### With `pigpio` factory for `gpiozero`
 
 - https://gpiozero.readthedocs.io/en/stable/api_pins.html#changing-pin-factory
 
@@ -82,7 +80,7 @@ Change `gpiozero` default pin factory
 GPIOZERO_PIN_FACTORY=pigpio PYTHONPATH=$(cd .. && pwd) python -B -m optophone
 ```
 
-Override `loguru` default formatting
+### With modified `loguru` default format
 
 - Slightly modifies default format as per docs
 - https://github.com/Delgan/loguru/blob/master/loguru/_defaults.py#L31
@@ -95,7 +93,7 @@ PYTHONPATH=$(cd .. && pwd) \
 python -B -m optophone
 ```
 
-## Shell script
+### With a shell script
 
 - Wrapper for above verbose one-line command
 - Receives **module name** as argument
@@ -110,12 +108,8 @@ Running this...
 
 ```sh
 ...  # Temporary environment variables
-python -b -m optophone
+python -B -m optophone
 ```
-
-## TTS commands
-
-...
 
 ## Concepts
 
@@ -162,18 +156,6 @@ SUBSYSTEM=="usb", MODE="0666"
 - [RaspAP](https://raspap.com/)
 - [Also via official documentation](https://www.raspberrypi.com/documentation/computers/configuration.html#set-up-the-network-router)
 
-### Credentials
-
-- SSID
-  - squid
-  - mark1234
-- Dashboard
-  - squid
-  - mark1234
-- SSH
-  - squid
-  - mark1234
-
 ### Toggling
 
 https://docs.raspap.com/faq/#can-i-turn-the-hotspot-onoff-over-ssh
@@ -212,7 +194,7 @@ https://docs.raspap.com/faq/#can-i-turn-the-hotspot-onoff-over-ssh
 `ssh squid@raspberrypi.local`
 
 - Must connect to same network as Pi
-- Pi can host required network (hotspot )
+- Pi can host required network (hotspot)
 
 ### Auto login
 
@@ -237,6 +219,8 @@ https://docs.raspap.com/faq/#can-i-turn-the-hotspot-onoff-over-ssh
 - RaspAP default IP
 
 ## VSCode
+
+Remote SSH
 
 - https://code.visualstudio.com/docs/remote/remote-overview
 - https://code.visualstudio.com/docs/remote/ssh
