@@ -12,38 +12,24 @@ uhubctl \
            # off | on | cycle | toggle
 """
 
-import textwrap as tw
-
 from . import cli
 
 
 def on():
-    cmd = (
-        tw.dedent(
-            """
-            uhubctl
-            --location 1-1
-            --ports 2
-            --action on
-            """
-        )
-        .strip()
-        .replace("\n", " ")
+    cmd = cli.cmd(
+        "uhubctl",
+        "--location 1-1",
+        "--ports 2",
+        "--action on",
     )
     cli.run(cmd)
 
 
 def off():
-    cmd = (
-        tw.dedent(
-            """
-            uhubctl
-            --location 1-1
-            --ports 2
-            --action off
-            """
-        )
-        .strip()
-        .replace("\n", " ")
+    cmd = cli.cmd(
+        "uhubctl",
+        "--location 1-1",
+        "--ports 2",
+        "--action off",
     )
     cli.run(cmd)

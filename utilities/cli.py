@@ -36,6 +36,10 @@ def color_text(text: str, colors: Iterable[ColorAffix]) -> str:
     return prefixes + text + suffixes
 
 
+def cmd(*args: list[str]):
+    return " ".join(args)
+
+
 def parse_command(cmd: str) -> list[str]:
     return shlex.split(cmd)
 

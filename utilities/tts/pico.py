@@ -59,16 +59,11 @@ def generate_wav(
     filename="tts.wav",
 ) -> str:
     filepath = f"/tmp/{filename}"
-    cli.run(
-        tw.dedent(
-            f"""
-            pico2wave
-            --wave={filepath}
-            --lang={language}
-            "{format(text)}"
-            """
-        )
-        .strip()
-        .replace("\n", " ")
+    cmd = cli.cmd(
+        "pico2wave",
+        f"--wave={filepath}",
+        f"--lang={language}",
+        f'"{format(text)}"',
     )
+    cli.run(cmd)
     return filepath
