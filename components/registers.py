@@ -49,24 +49,19 @@ def cycle_counter():
 def display():
     global braille_lines, row_idx, col_idx  # Should be unnecessary...
 
+    l = m = r = 0
     try:
-        if counter == 0:
-            raise Exception()
-
-        try:
-            l = braille_lines[row_idx][col_idx + 0]
-        except:
-            l = 0
-        try:
-            m = braille_lines[row_idx][col_idx + 1]
-        except:
-            m = 0
-        try:
-            r = braille_lines[row_idx][col_idx + 2]
-        except:
-            r = 0
+        l = braille_lines[row_idx][col_idx + 0]
     except:
-        l = m = r = 0
+        l = 0
+    try:
+        m = braille_lines[row_idx][col_idx + 1]
+    except:
+        m = 0
+    try:
+        r = braille_lines[row_idx][col_idx + 2]
+    except:
+        r = 0
 
     left.value = ~l
     mid.value = ~m
