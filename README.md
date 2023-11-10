@@ -100,7 +100,7 @@ python -B -m optophone
 
 Running this...
 
-```
+```sh
 ./run.sh optophone
 ```
 
@@ -110,6 +110,31 @@ Running this...
 ...  # Temporary environment variables
 python -B -m optophone
 ```
+
+## Testing
+
+> ⚠ A very naive testing methodology was used, to keep things simple
+
+### Unit tests
+
+- Each source file represents a component or set of related functions
+- Because of the modular approach, each source file can be run on its own, e.g.
+  ```sh
+  # Will run the `utilities/usb.py` file
+  ./run.sh optophone.utilities.usb
+  ```
+- When applicable, each source file will have a `if __name__ == "main":` block at the end that uses its declared functions for basic testing when run on its own
+
+### Integration tests
+
+- Independent entrypoint files are defined under the `tests/` directory
+- These files import other components or utilities
+- These are run with e.g.
+  ```sh
+  # Will run the `tests/tts_player.py` file
+  ./run.sh optophone.tests.tts_player
+  ```
+- In running these files, the functionalities of the imported components and utilities are enabled so their behavior may be observed
 
 ## Concepts
 
