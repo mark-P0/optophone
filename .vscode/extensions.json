@@ -1,6 +1,8 @@
 {
   "recommendations": [
     "esbenp.prettier-vscode",
-    "streetsidesoftware.code-spell-checker"
+    "streetsidesoftware.code-spell-checker",
+    "charliermarsh.ruff",
+    "ms-python.python"
   ]
 }
