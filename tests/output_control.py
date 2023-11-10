@@ -1,3 +1,5 @@
+# flake8: noqa: F401 - Imported modules have event listeners that must be "executed" (via the act of importing)
+
 from ..components import registers, speakers
 from ..components.buttons import power as power_button
 from ..components.buttons import toggle
@@ -9,9 +11,9 @@ from ..components.leds import status
 from ..utilities import events
 
 events.OUTPUT_TTS.publish(
-    'abcdefghijklmnopqrstuvwxyz'
-    # '      '
-    # 'aaaaaa'
+    "abcdefghijklmnopqrstuvwxyz"
+    # "      "
+    # "aaaaaa"
 )
 
 events.loop.run_forever()

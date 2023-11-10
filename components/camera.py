@@ -62,27 +62,19 @@ async def on_document_found(*_):
 
 
 @events.IMAGE_CAPTURED.subscribe
-async def on_image_capture(
-    image: Image.Image,
-):
-    logger.info(
-        "Performing OCR on image..."
-    )
+async def on_image_capture(image: Image.Image):
+    logger.info("Performing OCR on image...")
 
     try:
         text = ocr.image_to_text(image)
         logger.info("OCR finished.")
         logger.debug(text)
     except Exception as error:
-        logger.warning(
-            "OCR failed; timeout? non-document?"
-        )
+        logger.warning("OCR failed; timeout? non-document?")
         logger.warning(error)
         text = ""
 
-    events.OUTPUT_TTS.publish(
-        text
-    )  # Choose which of these is default...
+    events.OUTPUT_TTS.publish(text)  # Choose which of these is default...
     # events.OUTPUT_BRAILLE.publish(text)
 
 

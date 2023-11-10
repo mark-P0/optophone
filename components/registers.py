@@ -1,13 +1,10 @@
+# flake8: noqa: E722 - Allow bare excepts...
+# flake8: noqa: E741 - Allow `l` (lowercase "L") variables
+
 from loguru import logger
 
-from ..utilities import (
-    asynch,
-    braille,
-    events,
-)
-from ..utilities.register import (
-    ShiftRegister,
-)
+from ..utilities import asynch, braille, events
+from ..utilities.register import ShiftRegister
 
 left = ShiftRegister(17, 27, 22)
 mid = ShiftRegister(10, 9, 11)
@@ -38,18 +35,10 @@ def cycle_counter():
         counter -= 1
         counter = max(0, counter)
 
-        if (counter == 0) and (
-            not has_deactivated_by_counter
-        ):
-            logger.warning(
-                "Register timeout"
-            )
-            has_deactivated_by_counter = (
-                True
-            )
-            events.OUTPUT_TOGGLE.publish(
-                None
-            )
+        if (counter == 0) and (not has_deactivated_by_counter):
+            logger.warning("Register timeout")
+            has_deactivated_by_counter = True
+            events.OUTPUT_TOGGLE.publish(None)
     else:
         counter += 1
         counter = min(COUNTER_MAX, counter)
@@ -65,21 +54,15 @@ def display():
             raise Exception()
 
         try:
-            l = braille_lines[row_idx][
-                col_idx + 0
-            ]
+            l = braille_lines[row_idx][col_idx + 0]
         except:
             l = 0
         try:
-            m = braille_lines[row_idx][
-                col_idx + 1
-            ]
+            m = braille_lines[row_idx][col_idx + 1]
         except:
             m = 0
         try:
-            r = braille_lines[row_idx][
-                col_idx + 2
-            ]
+            r = braille_lines[row_idx][col_idx + 2]
         except:
             r = 0
     except:
@@ -92,9 +75,7 @@ def display():
     # mid.value = ~0b0_000001_0
     # right.value = ~0b0_000001_0
 
-    logger.debug(
-        f"{row_idx} {col_idx} {l:0>8b} {m:0>8b} {r:0>8b}"
-    )
+    logger.debug(f"{row_idx} {col_idx} {l:0>8b} {m:0>8b} {r:0>8b}")
 
 
 def disable():
@@ -121,9 +102,7 @@ async def on_waiting_for_document(*_):
 
 
 @events.OUTPUT_BRAILLE.subscribe
-async def on_output_braille(
-    incoming_text: str,
-):
+async def on_output_braille(incoming_text: str):
     global is_active, text, braille_lines, row_idx, col_idx, has_processed
 
     logger.info("Braille output active.")
@@ -134,22 +113,13 @@ async def on_output_braille(
     text = incoming_text
 
     if not has_processed:
-        logger.info(
-            "Converting text to braille. . ."
-        )
-        braille_lines = [
-            braille.text_to_braille(line)
-            for line in text.split("\n")
-        ]
-        logger.info(
-            "Converted text to braille."
-        )
+        logger.info("Converting text to braille. . .")
+        braille_lines = [braille.text_to_braille(line) for line in text.split("\n")]
+        logger.info("Converted text to braille.")
         has_processed = True
-
     else:
-        logger.info(
-            "Reusing previous braille conversion. . ."
-        )
+        logger.info("Reusing previous braille conversion. . .")
+
     row_idx = 0
     col_idx = 0
 
@@ -170,9 +140,7 @@ async def on_output_toggle(*_):
     stored_text = text
     disable()
 
-    await asynch.sleep(
-        0.5
-    )  # Race conditions...
+    await asynch.sleep(0.5)  # Race conditions...
     events.OUTPUT_TTS.publish(stored_text)
 
 
@@ -200,9 +168,7 @@ async def on_right_yellow_button(*_):
         return
 
     col_idx += 3
-    if col_idx > (
-        len(braille_lines[row_idx]) - 1
-    ):
+    if col_idx > (len(braille_lines[row_idx]) - 1):
         col_idx -= 3
 
     # end_idx = len(braille_lines[row_idx]) - size

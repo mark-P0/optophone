@@ -1,3 +1,4 @@
+# fmt:off
 letters = {
     "a": 0b0_000001_0, "b": 0b0_000011_0,
     "c": 0b0_001001_0, "d": 0b0_011001_0,
@@ -31,8 +32,9 @@ special = {
 
 prefixes = {
     "capital": 0b0_100000_0, "number": 0b0_111100_0,
-    "quote":   0b0_000100_0, "paren": 0b0_010000_0,
+    "quote":   0b0_000100_0, "paren":  0b0_010000_0,
     "slash":   0b0_111000_0}
+# fmt:on
 
 
 def text_to_braille(text: str):
@@ -50,20 +52,17 @@ def text_to_braille(text: str):
             if char == '"' or char == "'":
                 yield prefixes["quote"]
             elif char == "(" or char == ")":
-                yield prefixes[
-                    "parenthesis"
-                ]
-            elif (
-                char == "/" or char == "\\"
-            ):
+                yield prefixes["parenthesis"]
+            elif char == "/" or char == "\\":
                 yield prefixes["slash"]
             yield special[char]
 
-        yield special[" "]
+        else:
+            yield special[" "]
 
 
 if __name__ == "__main__":
-    # flake8: noqa
+    # fmt: off
 
     print(
         text_to_braille(

@@ -1,4 +1,7 @@
 {
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  },
   "[python]": {
     "editor.tabSize": 4,
     "editor.defaultFormatter": "charliermarsh.ruff"
@@ -9,6 +12,8 @@
   },
   "cSpell.allowCompoundWords": true,
   "cSpell.words": [
+    "apds",
+    "uhubctl",
     "raspberrypi",
     "pycache",
     "gpiotest",

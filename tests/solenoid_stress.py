@@ -23,6 +23,4 @@ while time.time() < stop:
     else:
         OUTPUT_ENABLE.on()
 
-
     time.sleep(1)
-

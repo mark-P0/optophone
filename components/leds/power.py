@@ -1,6 +1,6 @@
-'''
-Managed via the helper shell script
-'''
+"""
+Managed via the entrypoint shell script
+"""
 
 # from loguru import logger
 #

@@ -3,21 +3,16 @@
 - Both are tied to USB power
 - When USB power is disabled, both components are disabled
 """
+# flake8: noqa: E722 - Allow bare excepts...
 
 from langdetect import DetectorFactory
 from langdetect import detect as detect_lang
 from loguru import logger
 
-from ..utilities import (
-    asynch,
-    audio,
-    events,
-)
+from ..utilities import asynch, audio, events
 from ..utilities.tts import pico
 
-DetectorFactory.seed = (
-    0  # For deterministic results
-)
+DetectorFactory.seed = 0  # For deterministic results
 
 is_active = False
 text = ""
@@ -73,30 +68,22 @@ async def on_output_tts(incoming_text: str):
         has_processed = True
 
         logger.info("Performing TTS. . .")
-
         try:
             language = detect_lang(text)
         except:
             language = "en"
-
         logger.debug(f"{language=}")
-        if language == "tl":
-            filename = pico.generate_wav(
-                text, "es-ES"
-            )
-        else:
-            filename = pico.generate_wav(
-                text, "en-US"
-            )
 
+        if language == "tl":
+            filename = pico.generate_wav(text, "es-ES")
+        else:
+            filename = pico.generate_wav(text, "en-US")
         logger.info("TTS finished.")
 
         logger.info("Playing audio. . .")
         audio.use(filename)
     else:
-        logger.info(
-            "Reusing previous TTS results. . ."
-        )
+        logger.info("Reusing previous TTS results. . .")
         audio.toggle_playback()
 
     events.OUTPUT_DISPLAY.publish(None)
@@ -113,12 +100,8 @@ async def on_output_toggle(*_):
     stored_text = text
     disable()
 
-    await asynch.sleep(
-        0.5
-    )  # Race conditions...
-    events.OUTPUT_BRAILLE.publish(
-        stored_text
-    )
+    await asynch.sleep(0.5)  # Race conditions...
+    events.OUTPUT_BRAILLE.publish(stored_text)
 
 
 @events.BUTTON_YELLOW_LEFT.subscribe

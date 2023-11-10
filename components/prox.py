@@ -2,19 +2,16 @@
 https://learn.adafruit.com/scanning-i2c-addresses/raspberry-pi
 https://learn.adafruit.com/adafruit-apds9960-breakout/circuitpython
 """
+# flake8: noqa: E722 - Allow bare excepts...
 
 import time
 
 import board
-from adafruit_apds9960.apds9960 import (
-    APDS9960,
-)
+from adafruit_apds9960.apds9960 import APDS9960
 from loguru import logger
 
 from ..utilities import asynch, events
-from ..utilities.file_inputs import (
-    Maintained,
-)
+from ..utilities.file_inputs import Maintained
 from .leds import strip
 
 
@@ -25,20 +22,14 @@ def initialize_prox():
         try:
             prox = APDS9960(board.I2C())
             prox.enable_proximity = True
-            logger.debug(
-                "Initialized prox"
-            )
+            logger.debug("Initialized prox")
             return prox
         except:
-            logger.debug(
-                "Failed to initialize prox; retrying..."
-            )
+            logger.debug("Failed to initialize prox; retrying...")
             pass
 
 
-fileprox = Maintained(
-    "/home/squid/Documents/optophone/components/prox.py"
-)
+fileprox = Maintained("/home/squid/Documents/optophone/components/prox.py")
 prox = initialize_prox()
 
 GRACE_PERIOD = 5
@@ -52,9 +43,7 @@ is_active = True
 @events.POWERUP.subscribe
 async def on_powerup(*_):
     logger.info("Waiting for document...")
-    events.WAITING_FOR_DOCUMENT.publish(
-        None
-    )
+    events.WAITING_FOR_DOCUMENT.publish(None)
 
 
 @events.OUTPUT_BRAILLE.subscribe
@@ -72,9 +61,7 @@ async def on_output_tts(*_):
 def has_something_in_proximity():
     global fileprox, prox
 
-    return fileprox.state or (
-        100 < prox.proximity
-    )
+    return fileprox.state or (100 < prox.proximity)
 
 
 @asynch.periodic(0.1)
@@ -88,23 +75,12 @@ def poll():
             return
 
         if not (
-            (
-                has_something_in_proximity()
-                and (not is_asserted)
-            )
-            or (
-                (
-                    not has_something_in_proximity()
-                )
-                and is_asserted
-            )
+            (has_something_in_proximity() and (not is_asserted))
+            or ((not has_something_in_proximity()) and is_asserted)
         ):
             return
 
-        if (
-            assert_ct
-            < ASSERTION_THRESHOLD
-        ):
+        if assert_ct < ASSERTION_THRESHOLD:
             assert_ct += 1
             return
 
@@ -113,34 +89,24 @@ def poll():
 
         if is_asserted:
             strip.on()
-            logger.debug(
-                "Grace period start..."
-            )
+            logger.debug("Grace period start...")
             time.sleep(GRACE_PERIOD)
-            logger.debug(
-                "Grace period end."
-            )
+            logger.debug("Grace period end.")
 
-            if (
-                not has_something_in_proximity()
-            ):
-                logger.debug(
-                    "Proximity lost after grace period"
-                )
+            if not has_something_in_proximity():
+                logger.debug("Proximity lost after grace period")
                 strip.off()
                 return
 
             logger.info("Document found.")
-            events.DOCUMENT_FOUND.publish(
-                None
-            )
+            events.DOCUMENT_FOUND.publish(None)
             is_active = False  # Deactivate prox when paper was found
+
         else:
             logger.info("Document lost.")
             strip.off()
-            events.WAITING_FOR_DOCUMENT.publish(
-                None
-            )
+            events.WAITING_FOR_DOCUMENT.publish(None)
+
     except:
         logger.debug("Prox crashed(?)")
         prox = initialize_prox()

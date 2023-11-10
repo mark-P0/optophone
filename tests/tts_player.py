@@ -1,3 +1,4 @@
+# flake8: noqa: F401 - Imported modules have event listeners that must be "executed" (via the act of importing)
 # cspell:words moveth
 
 from loguru import logger
@@ -73,7 +74,7 @@ async def on_white_right(*_):
 
 
 logger.debug("Performing TTS. . .")
-tts_file = pico.generate_wav(text, 'en-US')
+tts_file = pico.generate_wav(text, "en-US")
 logger.debug("TTS finished.")
 
 logger.debug("Playing audio. . .")

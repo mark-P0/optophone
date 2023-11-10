@@ -6,11 +6,12 @@ from PIL import Image
 def pil_to_cv(img: Image.Image) -> cv.Mat:
     """
     i.e. convert RGB to BGR
+
     - https://stackoverflow.com/q/14134892
     - https://stackoverflow.com//14556545/
     """
     mat = np.array(img)
-    ##         R  C  RGB
+    ##         Rw Cl RGB
     return mat[:, :, ::-1]
 
 

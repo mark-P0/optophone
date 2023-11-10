@@ -1,6 +1,5 @@
 from mpv import MPV
 
-
 player = MPV(keep_open=True)
 
 SPEED_STEP = 0.25
@@ -38,10 +37,6 @@ def toggle_playback():
 
 def play():
     player.pause = False
-
-
-def pause():
-    player.pause = pause
 
 
 def stop():

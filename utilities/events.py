@@ -1,8 +1,6 @@
 import asyncio
 from typing import Any, Callable, Coroutine
 
-from loguru import logger
-
 loop = asyncio.get_event_loop()
 
 
@@ -10,31 +8,25 @@ class Event:
     def __init__(self) -> None:
         self.subscribers = []
 
-    def subscribe(
-        self, fn: Callable[[Any], Coroutine]
-    ):
+    def subscribe(self, fn: Callable[[Any], Coroutine]):
         self.subscribers.append(fn)
 
     def publish(self, data):
         """
-        - Events are generally published
-          from GPIO device callbacks
-        - `gpiozero` runs callbacks from
-          another thread
-        - Tasks cannot be run on event loops
-          from other threads
+        - Events are generally published from GPIO device callbacks
+        - `gpiozero` runs callbacks from another thread
+        - Tasks cannot be run on event loops from other threads
+
         ---
-        - https://docs.python.org/3/library/
-          asyncio-task.html
-            #creating-tasks
-            #asyncio.Task
-            #scheduling-from-other-threads
+
+        - https://docs.python.org/3/library/asyncio-task.html#creating-tasks
+        - https://docs.python.org/3/library/asyncio-task.html#asyncio.Task
+        - https://docs.python.org/3/library/asyncio-task.html#scheduling-from-other-threads
         """
+
         for fn in self.subscribers:
             # loop.create_task(fn(data))  # Not thread-safe
-            asyncio.run_coroutine_threadsafe(
-                fn(data), loop
-            )
+            asyncio.run_coroutine_threadsafe(fn(data), loop)
 
 
 SHUTDOWN = Event()

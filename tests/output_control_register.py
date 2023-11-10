@@ -1,3 +1,5 @@
+# flake8: noqa: F401 - Imported modules have event listeners that must be "executed" (via the act of importing)
+
 from ..components import registers
 from ..components.buttons import power as power_button
 from ..components.buttons.white import left as white_left
@@ -7,7 +9,7 @@ from ..components.buttons.yellow import right as yellow_right
 from ..utilities import events
 
 events.OUTPUT_BRAILLE.publish(
-    'abcdefghijklmnopqrstuvwxyz'
+    "abcdefghijklmnopqrstuvwxyz"
     # '      '
     # 'aaaaaa'
 )

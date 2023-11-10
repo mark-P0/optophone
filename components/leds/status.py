@@ -4,10 +4,7 @@ from gpiozero import RGBLED
 from loguru import logger
 
 from ...utilities import events
-from ...utilities.cli import (
-    ColorAffix,
-    color_text,
-)
+from ...utilities.cli import ColorAffix, color_text
 
 led = RGBLED(
     red=16,
@@ -16,9 +13,7 @@ led = RGBLED(
     initial_value=(0, 0, 0),
 )
 
-output: Literal[
-    "braille", "tts", None
-] = "tts"
+output: Literal["braille", "tts", None] = "tts"
 
 
 @events.SHUTDOWN.subscribe

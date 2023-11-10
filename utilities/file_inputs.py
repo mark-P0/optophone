@@ -1,4 +1,7 @@
 """
+Used for allowing source files to be a source of input,
+e.g. for testing without actually interacting with hardware
+
 https://learn.sparkfun.com/tutorials/button-and-switch-basics/
 """
 
@@ -16,15 +19,11 @@ class Momentary:
     """
 
     def __init__(self, filename: str):
-        logger.warning(
-            f"Input to `{filename}` enabled"
-        )
+        logger.warning(f"Input to `{filename}` enabled")
 
         self.path = filename
         self.data = os.stat(self.path)
-        self.when_pressed: Callable = (
-            lambda: ...
-        )
+        self.when_pressed: Callable = lambda: ...
 
         @asynch.periodic()
         def poll():
@@ -46,9 +45,7 @@ class Maintained:
     """
 
     def __init__(self, filename: str):
-        logger.warning(
-            f"Input to `{filename}` enabled"
-        )
+        logger.warning(f"Input to `{filename}` enabled")
 
         self.path = filename
         self.data = os.stat(self.path)
@@ -74,9 +71,7 @@ if __name__ == "__main__":
         print("shutdown triggered")
         asynch.loop.stop()
 
-    power = Momentary(
-        "./utilities/file_inputs/button_power"
-    )
+    power = Momentary("./utilities/file_inputs/button_power")
     power.when_pressed = shutdown
 
     # prox = Maintained("./utilities/file_inputs/prox")

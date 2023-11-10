@@ -12,7 +12,7 @@ right.shift_out(0)
 
 time.sleep(3)
 for key, bits in [*braille.letters.items()][1:8]:
-    print(f'{key=} {bin(bits)=}')
+    print(f"{key=} {bin(bits)=}")
 
     left.shift_out(~bits)
     mid.shift_out(~bits)

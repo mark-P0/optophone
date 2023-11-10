@@ -30,12 +30,8 @@ class ColorAffix(str, Enum):
     BG_WHITE = "\x1b[47m"
 
 
-def color_text(
-    text: str, colors: Iterable[ColorAffix]
-) -> str:
-    prefixes = "".join(
-        color for color in colors
-    )
+def color_text(text: str, colors: Iterable[ColorAffix]) -> str:
+    prefixes = "".join(color for color in colors)
     suffixes = ColorAffix.RESET
     return prefixes + text + suffixes
 
