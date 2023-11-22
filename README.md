@@ -10,6 +10,30 @@ Software for a reading machine powered by Raspberry Pi 3B+
 
 ![](./images/schematic.png)
 
+### I2C and power button
+
+> - https://elinux.org/RPI_safe_mode
+> - https://forums.raspberrypi.com/viewtopic.php?f=29&t=24682
+> - https://forums.raspberrypi.com/viewtopic.php?f=29&t=12007
+
+- Pi can be woken (turned on) by shorting pins 5 and 6
+  - Pin 5 is `GPIO3`
+  - Pin 6 is `GND`
+- Power button is grounded on one leg, and both `GPIO3` and `GPIO4` on the other
+- Power off is handled on `GPIO4` via software
+  - Ends program and executes `sudo poweroff`
+- On normal operations, power button causes I2C issues as `GPIO3` is also `I2C1 SCL`
+  - Deemed to matter little as the device will be powered off anyway
+  - Naive safeguard implemented where I2C devices are reinitialized after issues
+
+### Register enables
+
+- All connected to `GPIO12`
+- Default off by pulling up to 3.3V
+  - Ideally should be 5V
+  - However, line is connected with Pi GPIO, which are [**not 5V-tolerant**](https://forums.raspberrypi.com/viewtopic.php?t=227262)
+  - [3.3V can still assert 5V TTL](https://learn.sparkfun.com/tutorials/logic-levels/all#33-v-cmos-logic-levels)
+
 ## Review of GPIO libraries
 
 > https://raspberrypi.stackexchange.com/questions/58820/compare-and-contrast-python-gpio-apis
