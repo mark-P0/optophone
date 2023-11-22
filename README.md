@@ -34,6 +34,37 @@ Software for a reading machine powered by Raspberry Pi 3B+
   - However, line is connected with Pi GPIO, which are [**not 5V-tolerant**](https://forums.raspberrypi.com/viewtopic.php?t=227262)
   - [3.3V can still assert 5V TTL](https://learn.sparkfun.com/tutorials/logic-levels/all#33-v-cmos-logic-levels)
 
+## Pinout
+
+> Adapted from [pinout.xyz](https://pinout.xyz/)
+
+<!-- cspell:disable -->
+
+|         Connection |               Feature |     GPIO | Pin | Pin | GPIO     | Feature               | Connection            |
+| -----------------: | --------------------: | -------: | --: | :-- | :------- | :-------------------- | :-------------------- |
+|                    |                 `3V3` |          |   1 | 2   |          | `5V`                  |                       |
+|               Prox |          `I2C1` `SDA` |  `GPIO2` |   3 | 4   |          | `5V`                  |                       |
+|  `BTN` Power; Prox |          `I2C1` `SCL` |  `GPIO3` |   5 | 6   |          | `GND`                 | _Shared with circuit_ |
+|        `BTN` Power |              `GPCLK0` |  `GPIO4` |   7 | 8   | `GPIO14` | `UART` `TX`           | `LED` Power           |
+|                    |                 `GND` |          |   9 | 10  | `GPIO15` | `UART` `RX`           |                       |
+|   `REG` Left `DAT` |                       | `GPIO17` |  11 | 12  | `GPIO18` | `PCM` `CLK`           |                       |
+|   `REG` Left `LAT` |                       | `GPIO27` |  13 | 14  |          | `GND`                 |                       |
+|   `REG` Left `CLK` |                       | `GPIO22` |  15 | 16  | `GPIO23` |                       |                       |
+|                    |                 `3V3` |          |  17 | 18  | `GPIO24` |                       |                       |
+|    `REG` Mid `DAT` |         `SPI0` `MOSI` | `GPIO10` |  19 | 20  |          | `GND`                 |                       |
+|    `REG` Mid `LAT` |         `SPI0` `MISO` |  `GPIO9` |  21 | 22  | `GPIO25` |                       | `REG` Right `DAT`     |
+|    `REG` Mid `CLK` |         `SPI0` `SCLK` | `GPIO11` |  23 | 24  | `GPIO8`  | `SPI0` `CE0`          | `REG` Right `LAT`     |
+|                    |                 `GND` |          |  25 | 26  | `GPIO7`  | `SPI0` `CE1`          | `REG` Right `CLK`     |
+|                    | `I2C0` `EEPROM` `SDA` |  `GPIO0` |  27 | 28  | `GPIO1`  | `I2C0` `EEPROM` `SCL` |                       |
+|       `BTN` Toggle |                       |  `GPIO5` |  29 | 30  |          | `GND`                 |                       |
+|  `BTN` Yellow Left |                       |  `GPIO6` |  31 | 32  | `GPIO12` | `PWM0`                | `REG` Enable          |
+| `BTN` Yellow Right |                `PWM1` | `GPIO13` |  33 | 34  |          | `GND`                 |                       |
+|   `BTN` White Left |            `PCM` `FS` | `GPIO19` |  35 | 36  | `GPIO16` |                       | `LED` `RGB` `R`       |
+|  `BTN` White Right |                       | `GPIO26` |  37 | 38  | `GPIO20` | `PCM` `DIN`           | `LED` `RGB` `G`       |
+|                    |                 `GND` |          |  39 | 40  | `GPIO21` | `PCM` `DOUT`          | `LED` `RGB` `B`       |
+
+<!-- cspell:enable -->
+
 ## Review of GPIO libraries
 
 > https://raspberrypi.stackexchange.com/questions/58820/compare-and-contrast-python-gpio-apis
