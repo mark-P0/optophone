@@ -4,7 +4,37 @@
 
 Software for a reading machine powered by Raspberry Pi 3B+
 
-> Unfortunately did not get a `requirements.txt`, OS version, and Python version before the project was submitted...
+## Dependencies
+
+> Unfortunately did not get `requirements.txt`, OS version, and Python version
+
+- `gpiozero`
+- [Adafruit's APDS9960 library](https://github.com/adafruit/Adafruit_CircuitPython_APDS9960)
+  - _Normally for CircuitPython_
+- `picamera`
+- Tesseract, via `pytesseract`
+  - PIL
+  - OpenCV2
+  - NumPy
+- `langdetect`
+- `mpv`
+- `loguru`
+
+### CLI
+
+- [Pico TTS](https://www.openhab.org/addons/voice/picotts/) `pico2wave`
+
+<details>
+  <summary><h3>Concepts</h3></summary>
+  <ul>
+    <li>Decorators</li>
+    <li>Async</li>
+    <li>Pubsub</li>
+    <li>Main blocks</li>
+    <li>Modules | Scripts | <s>Packages</s></li>
+    <li>Files as singletons</li>
+  </ul>
+</details>
 
 ## Circuit
 
@@ -194,15 +224,6 @@ python -B -m optophone
   ./run.sh optophone.tests.tts_player
   ```
 - In running these files, the functionalities of the imported components and utilities are enabled so their behavior may be observed
-
-## Concepts
-
-- Decorators
-- Async
-- Pubsub
-- Main blocks
-- Modules | Scripts | ~~Packages~~
-- Files as singletons
 
 ## `uhubctl` USB permissions
 
