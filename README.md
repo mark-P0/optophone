@@ -6,6 +6,10 @@ Software for a reading machine powered by Raspberry Pi 3B+
 
 > Unfortunately did not get a `requirements.txt`, OS version, and Python version before the project was submitted...
 
+## Circuit
+
+![](./images/schematic.png)
+
 ## Review of GPIO libraries
 
 > https://raspberrypi.stackexchange.com/questions/58820/compare-and-contrast-python-gpio-apis
